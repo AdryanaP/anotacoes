@@ -3,14 +3,14 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     head: {
-      charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1',
-      title: 'Anotações',
-    }
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+      title: "Anotações",
+    },
   },
   alias: {
-    css: '/<rootDir>/assets/css',
-    image: '/<rootDir>/assets/images'
+    css: "/<rootDir>/assets/css",
+    image: "/<rootDir>/assets/images",
   },
   postcss: {
     plugins: {
@@ -18,5 +18,8 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  css: ["@/assets/css/main.css"],
-})
+  css: [
+    "@/assets/css/main.css",
+    "@fortawesome/fontawesome-svg-core/styles.css",
+  ],
+});

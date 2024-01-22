@@ -39,7 +39,7 @@
                 >
                   Deletar anotação
                 </DialogTitle>
-                <button type="button" @click="toggleModal">X</button>
+                <button type="button" @click="toggleModal"><font-awesome-icon icon="xmark" size="xl" style="color: #c2c2c2;" /></button>
               </div>
               <hr />
               <div class="mt-4 px-4 md:px-8">
