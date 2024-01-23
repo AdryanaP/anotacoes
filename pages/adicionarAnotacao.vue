@@ -1,6 +1,6 @@
 <template>
-  <div class="lg:w-[74%] lg:absolute right-0 bg-gray-100">
-    <div class="p-4 flex justify-between" >
+  <div class="lg:w-[74%] pr-2 lg:absolute right-0 bg-gray-100">
+    <div class="p-4 flex justify-between">
       <h1 class="font-bold text-xl text-gray-700">Criar anotação</h1>
       <button>
         <font-awesome-icon icon="xmark" size="xl" style="color: #c2c2c2" />
@@ -9,19 +9,36 @@
 
     <div>
       <form>
+        <div class="mx-4">
+          <textarea
+            id="note"
+            name="note"
+            v-model="annotation.note"
+            required=""
+            rows="6"
+            class="block w-full appearance-none rounded-lg border-2 border-transparent p-2 placeholder-gray-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+          >
+          </textarea>
+        </div>
+
         <div>
+          <label
+            for="title"
+            class="m-4 block text-sm font-medium text-gray-700 text-start"
+            >Título</label
+          >
           <div class="mx-4">
-            <textarea
-              id="note"
-              name="note"
-              v-model="annotation.note"
+            <input
+              id="title"
+              name="title"
+              v-model="annotation.title"
+              type="text"
               required=""
-              rows="6"
               class="block w-full appearance-none rounded-lg border-2 border-transparent p-2 placeholder-gray-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
-            >
-            </textarea>
+            />
           </div>
         </div>
+
         <div>
           <label
             for="profit"
@@ -110,6 +127,7 @@ export default {
         { value: "overdue", label: "atrasado" },
       ],
       annotation: {
+        title: null,
         note: null,
         profit: null,
         category: null,

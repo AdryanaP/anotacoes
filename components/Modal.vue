@@ -1,7 +1,7 @@
 <template>
-  <div class="fixed inset-0 flex items-center justify-center">
-    <ButtonSecondary @click="toggleModal"> Open dialog </ButtonSecondary>
-  </div>
+  <button @click="toggleModal">
+    <slot />
+  </button>
   <TransitionRoot appear :show="isOpen" as="template">
     <Dialog as="div" @close="toggleModal" class="relative z-10">
       <TransitionChild
@@ -39,7 +39,13 @@
                 >
                   Deletar anotação
                 </DialogTitle>
-                <button type="button" @click="toggleModal"><font-awesome-icon icon="xmark" size="xl" style="color: #c2c2c2;" /></button>
+                <button type="button" @click="toggleModal">
+                  <font-awesome-icon
+                    icon="xmark"
+                    size="xl"
+                    style="color: #c2c2c2"
+                  />
+                </button>
               </div>
               <hr />
               <div class="mt-4 px-4 md:px-8">
@@ -52,7 +58,9 @@
                 </p>
               </div>
 
-              <div class="mt-8 md:mt-12 flex gap-2 px-4 md:px-8 justify-between md:justify-end">
+              <div
+                class="mt-8 md:mt-12 flex gap-2 px-4 md:px-8 justify-between md:justify-end"
+              >
                 <button
                   type="button"
                   class="py-3 px-5 border rounded-full"
@@ -91,7 +99,7 @@ export default {
   },
   data() {
     return {
-      isOpen: true,
+      isOpen: false,
     };
   },
   methods: {

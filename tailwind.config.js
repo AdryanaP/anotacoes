@@ -9,8 +9,11 @@ export default {
     "./error.vue",
   ],
   theme: {
-    extend: {},
+    extend: {
+      gridTemplateColumns: {
+        badge: "repeat(auto-fill, minmax(100px, auto))",
+      },
+    },
   },
   plugins: [],
-}
-
+};
