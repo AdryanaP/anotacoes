@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col gap-3">
+  <div class="flex flex-col gap-3 overflow-y-scroll lg:h-[80%] h-[22rem] mb-4">
     <div
-      v-for="annotation, index in annotations"
+      v-for="(annotation, index) in annotations"
       :key="annotation.id"
       class="flex gap-3 items-center justify-between bg-white rounded-lg mx-4 p-2"
     >
@@ -15,13 +15,17 @@
               {{ annotation.title }}
             </p>
           </NuxtLink>
-          <p class="text-xs text-gray-400">
-            {{ annotation.created.toLocaleString() }}
+          <p class="text-[10px] text-gray-400">
+            {{ formatDate(annotation.created) }}
           </p>
         </div>
         <div class="flex justify-end w-full">
           <Modal :annotation-index="annotationSeleted">
-            <font-awesome-icon icon="trash-can" style="color: #ff7a7a" @click="getIndex(index)"/>
+            <font-awesome-icon
+              icon="trash-can"
+              style="color: #ff7a7a"
+              @click="getIndex(index)"
+            />
           </Modal>
         </div>
       </div>
@@ -36,13 +40,34 @@ export default {
   data() {
     return {
       annotations: [],
-      annotationSeleted: null
+      annotationSeleted: null,
     };
   },
 
   methods: {
     getIndex(index) {
-      this.annotationSeleted = index
+      this.annotationSeleted = index;
+    },
+
+    padTo2Digits(num) {
+      return num.toString().padStart(2, "0");
+    },
+
+    formatDate(created) {
+      const date = new Date(created)
+      return (
+        [
+          this.padTo2Digits(date.getMonth() + 1),
+          this.padTo2Digits(date.getDate()),
+          date.getFullYear(),
+        ].join("/") +
+        " " +
+        [
+          this.padTo2Digits(date.getHours()),
+          this.padTo2Digits(date.getMinutes()),
+          this.padTo2Digits(date.getSeconds()),
+        ].join(":")
+      );
     },
   },
 

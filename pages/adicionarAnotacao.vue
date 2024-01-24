@@ -2,9 +2,11 @@
   <div class="lg:w-[74%] pr-2 lg:absolute right-0 bg-gray-100">
     <div class="p-4 flex justify-between">
       <h1 class="font-bold text-xl text-gray-700">Criar anotação</h1>
-      <button>
-        <font-awesome-icon icon="xmark" size="xl" style="color: #c2c2c2" />
-      </button>
+      <NuxtLink to="/">
+        <button>
+          <font-awesome-icon icon="xmark" size="xl" style="color: #c2c2c2" />
+        </button>
+      </NuxtLink>
     </div>
 
     <div>
@@ -25,8 +27,10 @@
           <label
             for="title"
             class="m-4 block text-sm font-medium text-gray-700 text-start"
-            >Título</label
-          >
+            >Título
+            <span class="text-red-500">*</span>
+          </label>
+
           <div class="mx-4">
             <input
               id="title"
@@ -70,7 +74,7 @@
               mode="tags"
               :searchable="true"
               :create-option="true"
-              v-model="annotation.category"
+              v-model="annotation.categories"
               :options="options"
               required=""
               class="block w-full appearance-none rounded-lg border-2 border-transparent p-2 placeholder-gray-400 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
@@ -101,13 +105,16 @@
     </div>
 
     <div class="p-4 mt-8 flex justify-between lg:justify-end gap-4">
-      <ButtonSecondary>
-        <font-awesome-icon icon="trash-can" style="color: #ffffff" />
-      </ButtonSecondary>
-      <ButtonPrimary class="w-full lg:w-52" @click="addAnnotation"
+      <NuxtLink to="/">
+        <ButtonSecondary>
+          <font-awesome-icon icon="trash-can" style="color: #ffffff" />
+        </ButtonSecondary>
+      </NuxtLink>
+      <ButtonPrimary class="w-full lg:w-52" @click="checkFiels"
         >Salvar</ButtonPrimary
       >
     </div>
+    <Alert v-show="alertOpen" :success="success" :message="message" />
   </div>
 </template>
 
@@ -125,11 +132,10 @@ export default {
   data() {
     return {
       selected: ["important"],
-      options: [
-        { value: "important", label: "importante" },
-        { value: "urgent", label: "urgente" },
-        { value: "overdue", label: "atrasado" },
-      ],
+      success: false,
+      message: "",
+      alertOpen: false,
+      options: ["Importante", "Urgente", "Atrasado"],
       annotations: [],
       annotation: {
         id: 1,
@@ -160,6 +166,25 @@ export default {
   directives: { money3: Money3Directive },
 
   methods: {
+    checkFiels() {
+      if (this.annotation.note <= 2) {
+        this.success = false;
+        this.message = "Obrigatório preencher nota";
+        this.alertOpen = true;
+      } else if (this.annotation.title <= 0) {
+        this.success = false;
+        this.message = "Obrigatório preencher título";
+        this.alertOpen = true;
+      } else {
+        this.alertOpen = false;
+        this.addAnnotation();
+      }
+
+      setTimeout(() => {
+        this.alertOpen = false;
+      }, 3000);
+    },
+
     addAnnotation() {
       const annotationsStore = useAnnotationsStore();
 
@@ -173,7 +198,14 @@ export default {
         this.annotation.created
       );
 
-      window.location.reload()
+      this.success = true;
+      this.message = "Anotação criada com sucesso!";
+      this.alertOpen = true;
+      setTimeout(() => {
+        this.alertOpen = false;
+      }, 5000);
+
+      navigateTo("/anotacoes");
     },
   },
 

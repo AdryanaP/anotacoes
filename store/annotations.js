@@ -2,24 +2,7 @@ export const useAnnotationsStore = defineStore({
   id: "annotations-store",
   state: () => {
     return {
-      annotations: [
-        {
-          id: 1,
-          title: "Entrevista quinta",
-          note: "Entrevista quinta às 15h no Centro",
-          categories: ["importante"],
-          reminder: new Date(),
-          created: new Date(),
-          profit: 12,
-        },
-        {
-          id: 2,
-          title: "Ligar pai",
-          note: "Ligar pra pai 21 971484578",
-          categories: ["urgente"],
-          created: new Date(),
-        },
-      ],
+      annotations: []
     };
   },
 
@@ -29,13 +12,13 @@ export const useAnnotationsStore = defineStore({
 
   actions: {
     addAnnotation(
-      id: number,
-      title: string,
-      note: string,
-      profit: number,
-      categories: Array<string>,
-      reminder: Date,
-      created: Date
+      id,
+      title,
+      note,
+      profit,
+      categories,
+      reminder,
+      created
     ) {
       this.annotations.push({
         id,
@@ -48,18 +31,18 @@ export const useAnnotationsStore = defineStore({
       });
     },
 
-    deleteAnnotation(index: number) {
+    deleteAnnotation(index) {
       this.annotations.splice(index, 1);
     },
   },
 
   getters: {
     getAnnotationByTitle: (state) => {
-      return (title: string) =>
+      return (title) =>
         state.annotations.find((annotation) => annotation.title === title);
     },
     getAnnotationbyId: (state) => {
-      return (id: number) =>
+      return (id) =>
         state.annotations.find((annotation) => annotation.id === id);
     },
   },
