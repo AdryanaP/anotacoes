@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "autoprefixer": "^10.4.17",
     "nuxt": "^3.9.3",
     "postcss": "^8.4.33",
@@ -24,6 +25,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.5",
     "@headlessui/vue": "^1.7.17",
+    "@pinia/nuxt": "^0.5.1",
     "@vueform/multiselect": "^2.6.6",
     "v-money3": "^3.24.0",
     "vue-multiselect": "^3.0.0-beta.3"

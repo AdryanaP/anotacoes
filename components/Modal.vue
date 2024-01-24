@@ -68,7 +68,7 @@
                 >
                   Cancelar
                 </button>
-                <ButtonSecondary @click="toggleModal">
+                <ButtonSecondary @click="deleteAnnotation">
                   Deletar
                 </ButtonSecondary>
               </div>
@@ -97,6 +97,7 @@ export default {
     DialogPanel,
     DialogTitle,
   },
+  props: ["annotationIndex"],
   data() {
     return {
       isOpen: false,
@@ -106,6 +107,15 @@ export default {
     toggleModal() {
       this.isOpen = !this.isOpen;
     },
+
+    deleteAnnotation() {
+      const annotationsStore = useAnnotationsStore();
+
+      annotationsStore.deleteAnnotation(this.annotationIndex);
+
+      this.toggleModal();
+    },
   },
+
 };
 </script>

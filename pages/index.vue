@@ -6,7 +6,9 @@
     </button>
   </div>
 
-  <div class="lg:w-[74%] pr-2 lg:absolute right-0 flex flex-col items-center justify-center gap-8 h-screen">
+  <div
+    class="lg:w-[74%] pr-2 lg:absolute right-0 flex flex-col items-center justify-center gap-8 h-screen"
+  >
     <Logo />
     <ButtonPrimary>
       <NuxtLink to="/adicionarAnotacao">
@@ -21,5 +23,9 @@
 definePageMeta({
   layout: "default",
 });
-export default {};
+
+export default {
+  created() {
+  },
+};
 </script>

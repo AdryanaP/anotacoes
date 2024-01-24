@@ -8,9 +8,20 @@ export default defineNuxtConfig({
       title: "Anotações",
     },
   },
+  modules: [
+    ["@pinia/nuxt", { autoImports: ["defineStore", "acceptHMRUpdate"] }],
+    "@pinia-plugin-persistedstate/nuxt",
+  ],
+  build: {
+    transpile: ["pinia-plugin-persistedstate", "@fortawesome/vue-fontawesome"],
+  },
+  imports: {
+    dirs: ["store"],
+  },
   alias: {
     css: "/<rootDir>/assets/css",
     image: "/<rootDir>/assets/images",
+    pinia: "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs",
   },
   postcss: {
     plugins: {

@@ -104,7 +104,9 @@
       <ButtonSecondary>
         <font-awesome-icon icon="trash-can" style="color: #ffffff" />
       </ButtonSecondary>
-      <ButtonPrimary class="w-full lg:w-52">Salvar</ButtonPrimary>
+      <ButtonPrimary class="w-full lg:w-52" @click="addAnnotation"
+        >Salvar</ButtonPrimary
+      >
     </div>
   </div>
 </template>
@@ -112,6 +114,8 @@
 <script>
 import Multiselect from "@vueform/multiselect";
 import { Money3Directive } from "v-money3";
+import { storeToRefs } from "pinia";
+
 definePageMeta({
   layout: "default",
 });
@@ -126,12 +130,15 @@ export default {
         { value: "urgent", label: "urgente" },
         { value: "overdue", label: "atrasado" },
       ],
+      annotations: [],
       annotation: {
+        id: 1,
         title: null,
         note: null,
         profit: null,
-        category: null,
+        categories: [],
         reminder: null,
+        created: new Date(),
       },
       config: {
         prefix: "R$ ",
@@ -151,6 +158,34 @@ export default {
     };
   },
   directives: { money3: Money3Directive },
+
+  methods: {
+    addAnnotation() {
+      const annotationsStore = useAnnotationsStore();
+
+      annotationsStore.addAnnotation(
+        this.annotation.id,
+        this.annotation.title,
+        this.annotation.note,
+        this.annotation.profit,
+        this.annotation.categories,
+        this.annotation.reminder,
+        this.annotation.created
+      );
+
+      window.location.reload()
+    },
+  },
+
+  created() {
+    const annotationsStore = useAnnotationsStore();
+    const { annotations } = storeToRefs(annotationsStore);
+    this.annotations = annotations;
+    if (this.annotations.length >= 1) {
+      const lastId = this.annotations.length - 1;
+      this.annotation.id = this.annotations[lastId].id + 1;
+    }
+  },
 };
 </script>
 
