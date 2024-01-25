@@ -1,5 +1,9 @@
 <template>
   <div class="flex flex-col gap-3 overflow-y-scroll lg:h-[80%] h-[22rem] mb-4">
+    <div v-if="annotations.length == 0" class="flex justify-center items-center h-full">
+      <font-awesome-icon icon="magnifying-glass" class="text-gray-200 absolute z-0 text-8xl"/>
+      <p class="z-10 text-gray-600 italic">Nenhuma anotaçao</p>
+    </div>
     <div
       v-for="(annotation, index) in annotations"
       :key="annotation.id"
@@ -54,7 +58,7 @@ export default {
     },
 
     formatDate(created) {
-      const date = new Date(created)
+      const date = new Date(created);
       return (
         [
           this.padTo2Digits(date.getMonth() + 1),
